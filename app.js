@@ -1,24 +1,27 @@
 var http = require('http');
 var fs = require('fs');
+var sleep = require('process');
 var sleep = require('sleep');
 
-const FIRST = 1;
-const LAST = 2;
+const FIRST = process.argv[2];
+const LAST = process.argv[3];
 
-// function sleep(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// } // await sleep(1000)
+console.log("Downloading issues " + FIRST + " to " + LAST);
+
 
 var lstCallback = function (url, idx) {
     var issueNo = this.issueNo;
     var pageNo = idx+1;
+    var dest = "./_downloads/" + issueNo + "/" + pageNo + ".jpg";
+
     console.log("Issue #" + issueNo + ", page #" + pageNo + " ... downloading.");
-    
-    sleep.usleep(125000);
-    var file = fs.createWriteStream("./_downloads/" + issueNo + "/" + pageNo + ".jpg");
-    var request = http.get(url, function(response) {
-      response.pipe(file);
-    });
+    this.download(url, dest);
+
+    // sleep.usleep(125000);
+    // var file = fs.createWriteStream("./_downloads/" + issueNo + "/" + pageNo + ".jpg");
+    // var request = http.get(url, function(response) {
+    //   response.pipe(file);
+    // });
 
 }
 
@@ -34,6 +37,15 @@ try {
             try {
 
                 var issue = require('./twd'+i);
+                issue.download = function(url, dest) {
+                  var file = fs.createWriteStream(dest);
+                  var request = http.get(url, function(response) {
+                    response.pipe(file);
+                    file.on('finish', function() {
+                      file.close();
+                    });
+                  });
+              };
 
                 try {
                     stats = fs.statSync('./_downloads/' + issue.issueNo);
