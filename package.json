@@ -1,0 +1,23 @@
+{
+  "name": "twd-downloader",
+  "version": "0.1.0",
+  "description": "This is a utility to download comic book pages of \"The Walking Dead\".",
+  "main": "app.js",
+  "dependencies": {
+    "async": "^2.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carstenlucke/twd-downloader.git"
+  },
+  "author": "Carsten Lucke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carstenlucke/twd-downloader/issues"
+  },
+  "homepage": "https://github.com/carstenlucke/twd-downloader#readme"
+}
