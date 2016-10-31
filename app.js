@@ -14,7 +14,8 @@ var download = function(url, dest, syncCallback) {
         function(response) {
             response.pipe(file);
             file.on('finish', function() {
-                file.close(syncCallback());
+                file.close();
+                syncCallback();
             });
         }
     );
