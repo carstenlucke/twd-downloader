@@ -5,7 +5,6 @@ var sleep = require('sleep');
 
 const FIRST = process.argv[2];
 const LAST = process.argv[3];
-
 console.log("Downloading issues " + FIRST + " to " + LAST);
 
 
